@@ -8,8 +8,8 @@
 #' @param datafile Path to the `sas7bdat` file to be read by [haven::read_sas]
 #' @param formatfile Path to the SAS formats file to be read by [read_proc_format]
 #' @param fmtfile Path to the SAS fmts file to be read by [read_proc_format_vars]
-#' @param as_factor If TRUE, onvert labelled variables to factor with [haven::as_factor]
-#' @param ordered If TRUE and as_factor is TRUE, convert to ordered factor
+#' @param as_factor If TRUE, coerce labelled variables to factor with [haven::as_factor]
+#' @param ordered If TRUE and as_factor is TRUE, coerce to ordered factor
 #'
 #' @examples
 #' \dontrun{

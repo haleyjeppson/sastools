@@ -19,9 +19,9 @@ read_ssocs(
 
 \item{fmtfile}{Path to the SAS fmts file to be read by [read_proc_format_vars]}
 
-\item{as_factor}{If TRUE, onvert labelled variables to factor with [haven::as_factor]}
+\item{as_factor}{If TRUE, coerce labelled variables to factor with [haven::as_factor]}
 
-\item{ordered}{If TRUE and as_factor is TRUE, convert to ordered factor}
+\item{ordered}{If TRUE and as_factor is TRUE, coerce to ordered factor}
 }
 \value{
 A tibble, data frame variant with nice defaults.
