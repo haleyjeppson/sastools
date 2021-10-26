@@ -37,13 +37,17 @@ read_ssocs <- function(datafile, formatfile, fmtfile = NULL,
     purrr::map_dfr(extract_statement) %>%
     dplyr::mutate(label = purrr::map(.data$value, labelize_values)) %>%
     dplyr::left_join(fmts) %>%
-    dplyr::select(varname, formatname, label)
+    dplyr::select(varname, formatname, label) %>%
+    dplyr::mutate(varname = ifelse(is.na(varname), formatname, varname),
+           varname = stringr::str_remove(varname, "F$"))
 
   pf <- purrr::set_names(formatvalues$label, formatvalues$varname) %>%
     purrr::keep(~length(.[!is.na(.)]) > 0)
 
   pf <- pf[!(names(pf) %in% setdiff(names(pf), names(df)))]
-  df <- df %>% dplyr::mutate_at(names(pf), as.character)
+  df <- df %>%
+    dplyr::mutate_at(names(pf), as.character)  %>%
+    dplyr::mutate_if(is.character, stringr::str_trim)
 
   labelled::val_labels(df) <- pf
 
