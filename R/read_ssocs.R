@@ -45,13 +45,21 @@ read_ssocs <- function(datafile, formatfile, fmtfile = NULL,
     purrr::keep(~length(.[!is.na(.)]) > 0)
 
   pf <- pf[!(names(pf) %in% setdiff(names(pf), names(df)))]
+
+  # save attributes
+  varlabels <- labelled::var_label(df)
   df <- df %>%
     dplyr::mutate_at(names(pf), as.character)  %>%
     dplyr::mutate_if(is.character, stringr::str_trim)
 
   labelled::val_labels(df) <- pf
 
-  if(!as_factor) return(df)
+  if(!as_factor) {
+    labelled::var_label(df) <- varlabels
+    return(df)
+  } else {
   df <- df %>% dplyr::mutate_if(haven::is.labelled, labelled::to_factor, ordered = ordered)
+  labelled::var_label(df) <- varlabels
   return(df)
+  }
 }
